@@ -5,22 +5,23 @@ Suncode 2017 Hackathon
 Make sure to have [nodejs](https://nodejs.org/en/download/) installed.
 
 ### Set up backend
-From project root:
+*From project root:*
 ```sh
 pip install -r requirements.txt
 ```
 
 ### Set up frontend
-From project root:
+*From project root:*
 ```sh
 npm install -g bower
 cd app/static && bower install
 ```
 
 ## Start the server
-From project root:
+*From project root:*
 ```sh
-python run.py runapp --debug
+python run.py runapp --debug --port=8888
 ```
+The port number is arbitrary. It just needs to not already be in use. 
 
-Visit <https://localhost:8080/index.html> in your browser.
+Once the server is running, visit <http://localhost:8888/index.html> in your browser.
