@@ -1,0 +1,19 @@
+{
+  "name": "frontend",
+  "description": "",
+  "main": "index.html",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.x.x",
+    "angular-bootstrap": "2.x.x",
+    "lodash": "4.x.x",
+    "angular-chart.js": "^1.1.1"
+  }
+}
