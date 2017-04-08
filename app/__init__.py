@@ -7,4 +7,9 @@ app.config.from_object('config')
 
 db = SQLAlchemy(app)
 
+from .util import ListConverter
+app.url_map.converters['list'] = ListConverter
+
 from app import routes
+
+
