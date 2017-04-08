@@ -14,6 +14,7 @@
     "angular": "1.x.x",
     "angular-bootstrap": "2.x.x",
     "lodash": "4.x.x",
-    "angular-chart.js": "^1.1.1"
+    "angular-chart.js": "^1.1.1",
+    "angularjs-slider": "^6.1.1"
   }
 }
