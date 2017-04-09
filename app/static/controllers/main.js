@@ -30,7 +30,7 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
 
 
     // Add carto map
-    cartodb.createLayer($scope.mymap, 'https://amarinusha.carto.com/api/v2/viz/c1911712-1783-11e7-87a9-0e3ff518bd15/viz.json')
+    cartodb.createLayer($scope.mymap, 'https://amarinusha.carto.com/api/v2/viz/93bc65c4-1cb7-11e7-b095-0e98b61680bf/viz.json')
         .addTo($scope.mymap)
         .on('done', function(layer) {
             $scope.layerControl.addBaseLayer(layer, "Layer 1")
@@ -46,7 +46,7 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
             cartodb.log.log("some error occurred");
         });
 
-    cartodb.createLayer($scope.mymap, 'https://amarinusha.carto.com/api/v2/viz/d1bb50b4-1cae-11e7-a27c-0ef7f98ade21/viz.json')
+    cartodb.createLayer($scope.mymap, 'https://amarinusha.carto.com/api/v2/viz/e7531484-1cbd-11e7-94b5-0e3ebc282e83/viz.json')
         .addTo($scope.mymap)
         .on('done', function(layer) {
             $scope.layerControl.addBaseLayer(layer, "Layer 2")
@@ -62,7 +62,7 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
             cartodb.log.log("some error occurred");
         });
 
-    cartodb.createLayer($scope.mymap, 'https://amarinusha.carto.com/api/v2/viz/c6ea739a-1cb3-11e7-9a33-0e8c56e2ffdb/viz.json')
+    cartodb.createLayer($scope.mymap, 'https://amarinusha.carto.com/api/v2/viz/4171e4b8-1cbe-11e7-8be9-0e3ff518bd15/viz.json')
         .addTo($scope.mymap)
         .on('done', function(layer) {
             $scope.layerControl.addBaseLayer(layer, "Layer 3")
@@ -77,6 +77,7 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
         .on('error', function(err) {
             cartodb.log.log("some error occurred");
         });
+
     //
     // Create info overlay box
     $scope.info_overlay = L.control();

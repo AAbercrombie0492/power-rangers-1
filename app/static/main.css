@@ -52,23 +52,14 @@ body {
     background: rgba(0,0,0,0.3);
 }
 
+.small-slider.rzslider {
+    display: block;
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 95%;
+}
 .small-slider.rzslider .rz-pointer {
-  width: 8px;
-  height: 16px;
-  top: auto; /* to remove the default positioning */
-  bottom: 0;
-  background-color: #000;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-}
-
-.small-slider.rzslider .rz-bar {
-  background: #ffe4d1;
-  height: 4px;
-}
-.small-slider.rzslider .rz-pointer:after {
-  display: none;
-}
-.small-slider.rzslider .rz-bubble {
-  bottom: 14px;
+    width: 10px; 
+    height: 10px;
+    top: -3.5px;
 }
