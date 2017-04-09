@@ -1,9 +1,35 @@
 #mapid { 
     margin: auto;
-    position:absolute;
-    top:0;
-    bottom:0;
-    width:100%; 
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    width:60%;
+    margin-left: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    float: left;
+}
+
+#user {
+    float: right;
+    width: 38%;
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 61%;
+    background: rgba(255,255,255,1.0);
+    z-index: -1;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+}
+
+#user label {
+    font-size: 12px;
+}
+
+#inputs {
+
+}
+
+#outputs {
 }
 
 .info {
@@ -21,3 +47,28 @@
 }
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+body {
+    background: rgba(0,0,0,0.3);
+}
+
+.small-slider.rzslider .rz-pointer {
+  width: 8px;
+  height: 16px;
+  top: auto; /* to remove the default positioning */
+  bottom: 0;
+  background-color: #000;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.small-slider.rzslider .rz-bar {
+  background: #ffe4d1;
+  height: 4px;
+}
+.small-slider.rzslider .rz-pointer:after {
+  display: none;
+}
+.small-slider.rzslider .rz-bubble {
+  bottom: 14px;
+}

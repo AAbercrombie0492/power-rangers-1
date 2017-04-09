@@ -1,14 +1,83 @@
-var myApp = angular.module('myApp', ['ui.bootstrap', 'chart.js']);
+var myApp = angular.module('myApp', ['ui.bootstrap', 'chart.js', 'rzModule']);
 
 myApp.controller('MainController', function MainController($scope, $http, $compile){
-    $scope.mymap = L.map('mapid').setView([21.3917, 96.5973], 6);
+    $scope.mymap = L.map('mapid').setView([43,0], 3);
+    $scope.lcoeIn = {
+        size_kw: 1000,
+        esc: 0.02,
+        yield_yr1: 1600,
+        lifespan: 35,
+        degredation: 0.25,
+        soiling_yield_impact: 0.10,
+        coating_yield_impact: 0.04,
+        coating_om_impact: 0.3,
+        coating_cost_per_m2: 5.00,
+        coating_year: 4,
+        module_watts: 300.0,
+        module_area: 1.64007472
+    }
+    $scope.lcoeOut = {};
     $scope.regions = null;
-    $scope.region_info = null
+    $scope.region_info = null;
+
+    $scope.onSlider = function(sliderId, modelValue, highValue, pointerType){
+        updateLCOE();
+    }
 
     L.tileLayer(
         'https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYXVzdGVuNTIwIiwiYSI6ImNqMHg2M3VjYTAwNnAyd3FkbnVkb3JoMm4ifQ.p3t6Jx6BXlGlaHZWPn8Scg',
         {}).addTo($scope.mymap);
 
+
+    // Add carto map
+    cartodb.createLayer($scope.mymap, 'https://amarinusha.carto.com/api/v2/viz/c1911712-1783-11e7-87a9-0e3ff518bd15/viz.json')
+        .addTo($scope.mymap)
+        .on('done', function(layer) {
+            $scope.layerControl.addBaseLayer(layer, "Layer 1")
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {
+                cartodb.log.log(e, latlng, pos, data);
+            });
+            layer.on('error', function(err) {
+                cartodb.log.log('error: ' + err);
+            });
+        })
+        .on('error', function(err) {
+            cartodb.log.log("some error occurred");
+        });
+
+    cartodb.createLayer($scope.mymap, 'https://amarinusha.carto.com/api/v2/viz/d1bb50b4-1cae-11e7-a27c-0ef7f98ade21/viz.json')
+        .addTo($scope.mymap)
+        .on('done', function(layer) {
+            $scope.layerControl.addBaseLayer(layer, "Layer 2")
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {
+                cartodb.log.log(e, latlng, pos, data);
+            });
+            layer.on('error', function(err) {
+                cartodb.log.log('error: ' + err);
+            });
+        })
+        .on('error', function(err) {
+            cartodb.log.log("some error occurred");
+        });
+
+    cartodb.createLayer($scope.mymap, 'https://amarinusha.carto.com/api/v2/viz/c6ea739a-1cb3-11e7-9a33-0e8c56e2ffdb/viz.json')
+        .addTo($scope.mymap)
+        .on('done', function(layer) {
+            $scope.layerControl.addBaseLayer(layer, "Layer 3")
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {
+                cartodb.log.log(e, latlng, pos, data);
+            });
+            layer.on('error', function(err) {
+                cartodb.log.log('error: ' + err);
+            });
+        })
+        .on('error', function(err) {
+            cartodb.log.log("some error occurred");
+        });
+    //
     // Create info overlay box
     $scope.info_overlay = L.control();
     $scope.layerControl = L.control.layers(null, {}, {'position': 'topleft'});
@@ -30,7 +99,7 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
         this._div.innerHTML = text;
     };
 
-    $scope.info_overlay.addTo($scope.mymap); // add info overlay box to map
+    // $scope.info_overlay.addTo($scope.mymap); // add info overlay box to map
 
     function highlightRegion(e) {
         var layer = e.target;
@@ -146,5 +215,13 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
         });
     }
 
-    load();
+    function updateLCOE(){
+
+        $http.post("/api/lcoe", $scope.lcoeIn).then(function(result){
+            $scope.lcoeOut = result.data;
+        });
+        
+    }
+
+    //load();
 });
