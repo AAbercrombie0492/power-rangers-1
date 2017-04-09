@@ -32,43 +32,43 @@
      <div id="mapid"></div>
      <div id="user">
        <div id="inputs">
-         <div>
-           <label>System size</label>
-           <rzslider class="small-slider" rz-slider-model="lcoeIn.size_kw" rz-slider-options="{id: 'size_kw', onEnd: onSlider, floor: 0, ceil: 100000}"></rzslider>
-           <label>Expected escalation</label>
-           <rzslider class="small-slider" rz-slider-model="lcoeIn.esc" rz-slider-options="{id: 'esc', onEnd: onSlider, floor: 0.0, ceil: 0.1, step: 0.01}"></rzslider>
-           <label>Expected year 1 yield</label>
-           <rzslider class="small-slider" rz-slider-model="lcoeIn.yield_yr1" rz-slider-options="{id: 'yield_yr1', onEnd: onSlider, floor: 0, ceil: 2000}"></rzslider>
-           <label>Lifespan</label>
-           <rzslider class="small-slider" rz-slider-model="lcoeIn.lifespan" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 50}"></rzslider>
-           <label>Solar yield degradation</label>
-           <rzslider class="small-slider" rz-slider-model="lcoeIn.degredation" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 1.0, step: 0.01}"></rzslider>
-           <label>Soiling impact on yield</label>
-           <rzslider class="small-slider" rz-slider-model="lcoeIn.soiling_yield_impact" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 0.5, step: 0.01}"></rzslider>
-           <label>Coating impact on yield</label>
-           <rzslider class="small-slider" rz-slider-model="lcoeIn.coating_yield_impact" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 0.5, step: 0.01}"></rzslider>
-           <label>Coating impact on O&M cost</label>
-           <rzslider class="small-slider" rz-slider-model="lcoeIn.coating_om_impact" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 1.0, step: 0.01}"></rzslider>
+          <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <!-- Table -->
+            <div class="panel-heading">Inputs</div>
+           <label>System size (kW)</label>
+           <rzslider class="small-slider" rz-slider-model="lcoeIn.size_kw" rz-slider-options="{id: 'size_kw', onEnd: onSlider, floor: 0, ceil: 100000, precision: 1}"></rzslider>
+           <!-- <label>Expected escalation</label> -->
+           <!-- <rzslider class="small-slider" rz-slider-model="lcoeIn.esc" rz-slider-options="{id: 'esc', onEnd: onSlider, floor: 0.0, ceil: 0.1, step: 0.01, precision: 1}"></rzslider> -->
+           <label>Expected year 1 yield (kWh/kW)</label>
+           <rzslider class="small-slider" rz-slider-model="lcoeIn.yield_yr1" rz-slider-options="{id: 'yield_yr1', onEnd: onSlider, floor: 0, ceil: 2000, precision: 1}"></rzslider>
+           <label>Lifespan (yrs)</label>
+           <rzslider class="small-slider" rz-slider-model="lcoeIn.lifespan" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 50, precision: 1}"></rzslider>
+           <!-- <label>Solar yield degradation</label> -->
+           <!-- <rzslider class="small-slider" rz-slider-model="lcoeIn.degredation" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 1.0, step: 0.01, precision: 1}"></rzslider> -->
+           <label>Soiling impact on yield (%)</label>
+           <rzslider class="small-slider" rz-slider-model="lcoeIn.soiling_yield_impact" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 0.5, step: 0.01, precision: 1}"></rzslider>
+           <label>Coating impact on yield (%)</label>
+           <rzslider class="small-slider" rz-slider-model="lcoeIn.coating_yield_impact" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 0.5, step: 0.01, precision: 1}"></rzslider>
+           <label>Coating impact on O&M cost (%)</label>
+           <rzslider class="small-slider" rz-slider-model="lcoeIn.coating_om_impact" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 1.0, step: 0.01, precision: 1}"></rzslider>
            <label>Material Coating Cost ($/m^2)</label>
-           <rzslider class="small-slider" rz-slider-model="lcoeIn.coating_cost_per_m2" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 20}"></rzslider>
-           <label>Year of Application</label>
-           <rzslider class="small-slider" rz-slider-model="lcoeIn.coating_year" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 50}"></rzslider>
+           <rzslider class="small-slider" rz-slider-model="lcoeIn.coating_cost_per_m2" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 20, precision: 1}"></rzslider>
+           <label>Year of Application (yr)</label>
+           <rzslider class="small-slider" rz-slider-model="lcoeIn.coating_year" rz-slider-options="{id: 'lifespan', onEnd: onSlider, floor: 0, ceil: 50, precision: 1}"></rzslider>
          </div>
        </div>
         <div id="output">
           <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading">Outputs</div>
-            <div class="panel-body">
-            </div>
             <!-- Table -->
+            <div class="panel-heading">LCOE Scenarios</div>
             <table class="table">
               <tr><td></td><th>w/ Soiling</th><th>w/Soiling and Coating</th><th>w/ Neither</th></tr>
               <tr><th>High</th><td>{{lcoeOut.soil.high}}</td><td>{{lcoeOut.coat.high}}</td><td>{{lcoeOut.none.high}}</td></tr>
               <tr><th>Avg</th><td>{{lcoeOut.soil.avg}}</td><td>{{lcoeOut.coat.avg}}</td><td>{{lcoeOut.none.avg}}</td></tr>
               <tr><th>Low</th><td>{{lcoeOut.soil.low}}</td><td>{{lcoeOut.coat.low}}</td><td>{{lcoeOut.none.low}}</td></tr>
             </table>
-          </div>
         </div>
      </div>
   </body>

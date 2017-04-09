@@ -7,7 +7,7 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
         esc: 0.02,
         yield_yr1: 1600,
         lifespan: 35,
-        degredation: 0.25,
+        degredation: 0.0025,
         soiling_yield_impact: 0.10,
         coating_yield_impact: 0.04,
         coating_om_impact: 0.3,
@@ -33,7 +33,7 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
     cartodb.createLayer($scope.mymap, 'https://amarinusha.carto.com/api/v2/viz/93bc65c4-1cb7-11e7-b095-0e98b61680bf/viz.json')
         .addTo($scope.mymap)
         .on('done', function(layer) {
-            $scope.layerControl.addBaseLayer(layer, "Layer 1")
+            $scope.layerControl.addBaseLayer(layer, "Climate Zones")
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {
                 cartodb.log.log(e, latlng, pos, data);
@@ -49,7 +49,7 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
     cartodb.createLayer($scope.mymap, 'https://amarinusha.carto.com/api/v2/viz/e7531484-1cbd-11e7-94b5-0e3ebc282e83/viz.json')
         .addTo($scope.mymap)
         .on('done', function(layer) {
-            $scope.layerControl.addBaseLayer(layer, "Layer 2")
+            $scope.layerControl.addBaseLayer(layer, " Daily Soiling Loss %")
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {
                 cartodb.log.log(e, latlng, pos, data);
@@ -65,7 +65,7 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
     cartodb.createLayer($scope.mymap, 'https://amarinusha.carto.com/api/v2/viz/4171e4b8-1cbe-11e7-8be9-0e3ff518bd15/viz.json')
         .addTo($scope.mymap)
         .on('done', function(layer) {
-            $scope.layerControl.addBaseLayer(layer, "Layer 3")
+            $scope.layerControl.addBaseLayer(layer, "Solar Yield")
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {
                 cartodb.log.log(e, latlng, pos, data);
