@@ -2,8 +2,8 @@ import numpy as np
 
 def lcoe_model(size_kw, esc, expected_yield_yr1, lifespan, degradation, soiling_yield_impact, coating_yield_impact, coating_om_impact, coating_cost_per_m2, coating_year, module_watts, module_area, **kwargs):
     
-    coating_year = min(coating_year, lifespan)
-
+    coating_year = min(coating_year, lifespan )
+    
     module_watt_density = module_watts/module_area
 
     # Installed cost range
@@ -26,7 +26,8 @@ def lcoe_model(size_kw, esc, expected_yield_yr1, lifespan, degradation, soiling_
     pre_om_dev_npv = np.npv(esc, pre_om_dev_s)
 
 
-    coating_cost_s                = np.zeros(lifespan); coating_cost_s[coating_year] = size_kw*1e3/module_watt_density*coating_cost_per_m2
+    coating_cost_s                = np.zeros(lifespan)
+    coating_cost_s[coating_year] = size_kw*1e3/module_watt_density*coating_cost_per_m2
     coating_cost_npv              = np.npv(esc, coating_cost_s)
     post_om_s                     = np.ones(lifespan)*om_cost_avg
     post_om_s[coating_year:]     *= 1 - coating_om_impact
@@ -60,4 +61,40 @@ def lcoe_model(size_kw, esc, expected_yield_yr1, lifespan, degradation, soiling_
     lcoe['coat']['avg']  = _avg / (size_kw * total_coating_yield)
     lcoe['coat']['low']  = _low / (size_kw * total_coating_yield)
 
+    material_cost = coating_cost_s[coating_year]
+    shifted_pre_om_npv = np.npv(esc, pre_om_s[coating_year:])
+    shifted_post_om_npv = np.npv(esc, post_om_s[coating_year:])
+    om_savings = shifted_pre_om_npv - shifted_post_om_npv
+    net_savings = - material_cost + om_savings
+
+    avg_savings_per_year = pre_om_s[coating_year] - post_om_s[coating_year]
+    payback_period = material_cost / avg_savings_per_year
+
+    lcoe['avg_savings_per_year'] = avg_savings_per_year
+    lcoe['payback_periods'] = payback_period
+    lcoe['material_cost'] = material_cost
+    lcoe['om_savings'] = om_savings
+    lcoe['net_savings'] = net_savings
+
     return lcoe
+
+
+if __name__ == '__main__':
+    size_kw = 1e4
+    esc = 0.02
+    expected_yield_yr1 = 1600.
+    lifespan = 35
+    degradation = 0.0025
+    soiling_yield_impact = 0.1
+    coating_yield_impact = 0.04
+    coating_om_impact = 0.3
+    coating_cost_per_m2 = 5.
+    coating_year = 4
+    module_watts = 290.
+    module_area = 1.64007472
+
+    lcoe = lcoe_model(size_kw, esc, expected_yield_yr1, lifespan, degradation,
+               soiling_yield_impact, coating_yield_impact, coating_om_impact,
+               coating_cost_per_m2, coating_year, module_watts, module_area)
+
+    print("Done.")
