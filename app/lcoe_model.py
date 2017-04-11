@@ -2,7 +2,7 @@ import numpy as np
 
 def lcoe_model(size_kw, esc, expected_yield_yr1, lifespan, degradation, soiling_yield_impact, coating_yield_impact, coating_om_impact, coating_cost_per_m2, coating_year, module_watts, module_area, **kwargs):
     
-    coating_year = min(coating_year, lifespan )
+    coating_year = int(min(coating_year, lifespan ))
     
     module_watt_density = module_watts/module_area
 

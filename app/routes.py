@@ -32,5 +32,7 @@ def lcoe_model_route():
             module_watts         = request.json["module_watts"],
             module_area          = request.json["module_area"]
     )
+    for k in args:
+        args[k] = float(args[k])
     rv = lcoe_model(**args)
     return jsonify(rv)

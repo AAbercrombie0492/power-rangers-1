@@ -1,7 +1,7 @@
 var myApp = angular.module('myApp', ['ui.bootstrap', 'chart.js', 'rzModule']);
 
 myApp.controller('MainController', function MainController($scope, $http, $compile){
-    $scope.mymap = L.map('mapid').setView([43,0], 3);
+    $scope.mymap = L.map('mapid').setView([36.7783, -119.4179], 3);
     $scope.lcoeIn = {
         size_kw: 1000,
         esc: 0.02,
@@ -36,7 +36,7 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
             $scope.layerControl.addBaseLayer(layer, "Climate Zones")
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {
-                cartodb.log.log(e, latlng, pos, data);
+                // cartodb.log.log(e, latlng, pos, data);
             });
             layer.on('error', function(err) {
                 cartodb.log.log('error: ' + err);
@@ -52,7 +52,7 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
             $scope.layerControl.addBaseLayer(layer, " Daily Soiling Loss %")
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {
-                cartodb.log.log(e, latlng, pos, data);
+                // cartodb.log.log(e, latlng, pos, data);
             });
             layer.on('error', function(err) {
                 cartodb.log.log('error: ' + err);
@@ -68,7 +68,7 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
             $scope.layerControl.addBaseLayer(layer, "Solar Yield")
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {
-                cartodb.log.log(e, latlng, pos, data);
+                // cartodb.log.log(e, latlng, pos, data);
             });
             layer.on('error', function(err) {
                 cartodb.log.log('error: ' + err);
@@ -219,10 +219,20 @@ myApp.controller('MainController', function MainController($scope, $http, $compi
     function updateLCOE(){
 
         $http.post("/api/lcoe", $scope.lcoeIn).then(function(result){
+            // Copy results to scope and fix precision
+            function fixPrecision(value, key, collection){
+                if (_.isObject(value)){
+                    _.forEach(value, fixPrecision);
+                }else{
+                    collection[key] = value.toFixed(4);
+                }
+            }
+            _.forEach(result.data, fixPrecision);
             $scope.lcoeOut = result.data;
         });
         
     }
 
+    updateLCOE();
     //load();
 });
